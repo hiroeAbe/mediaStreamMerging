@@ -15,7 +15,7 @@ HighPass.setup = function() {
   console.log("highpass setup");
   this.output = audioCtx.createMediaStreamDestination();
   this.highpassNode = audioCtx.createBiquadFilter();
-  this.highpassNode.type = 0;
+  this.highpassNode.type = 1;
   this.highpassNode.frequency.value = 440;
 }
 
