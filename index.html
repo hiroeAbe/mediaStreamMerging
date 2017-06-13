@@ -56,7 +56,7 @@
     });
 
     function step1 () {
-      Lowpass.setup();
+      //Lowpass.setup();
       Highpass.setup();
       // (1) まずはビデオのみのストリームを取り出す
       navigator.getUserMedia(
@@ -70,10 +70,10 @@
           navigator.getUserMedia(
             {audio: true, video: false},
             function(audioStream){
-              Lowpass.setupFilter(audioStream);
+            //  Lowpass.setupFilter(audioStream);
               Highpass.setupFilter(audioStream);
               // できあがったoutputをvideoStreamに合流させる
-              videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
+            //  videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
               videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
 
               step2();
