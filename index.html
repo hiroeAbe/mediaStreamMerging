@@ -5,7 +5,7 @@
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
   <script type="text/javascript" src="https://skyway.io/dist/0.3/peer.js"></script>
   <script type="text/javascript" src="lowpass.js"></script>
-  <script type="text/javascript" src="highpass.js"></script>
+  <script type="text/javascript" src="filter.js"></script>
 
   <script>
 
@@ -56,7 +56,7 @@
     });
 
     function step1 () {
-      Lowpass.setup();
+      Filter.setup();
       //Highpass.setup();
       // (1) まずはビデオのみのストリームを取り出す
       navigator.getUserMedia(
@@ -70,10 +70,10 @@
           navigator.getUserMedia(
             {audio: true, video: false},
             function(audioStream){
-              Lowpass.setupFilter(audioStream);
+              Filter.setupFilter(audioStream);
               //Highpass.setupFilter(audioStream);
               // できあがったoutputをvideoStreamに合流させる
-             videoStream.addTrack(Lowpass.output.stream.getAudioTracks()[0]);
+             videoStream.addTrack(Filter.output.stream.getAudioTracks()[0]);
               //videoStream.addTrack(Highpass.output.stream.getAudioTracks()[0]);
 
               step2();
@@ -118,6 +118,15 @@
 
   <div class="pure-g">
 
+    <div><div style="float:left"><table>
+    <tr><td>Type : </td><td><select id="type" onchange="Setup()"><option>LPF</option><option>HPF</option><option>BPF</optioin>
+    <option>LowShelf</option><option>HighShelf</option><option>Peaking</option><option>Notch</option><option>AllPass</option>
+    </select></td></tr>
+    <tr><td>Freq : </td><td><input type="range" min="100" max="20000" id="freq" size="10" onchange="Setup()" value="5000"/></td><td><div id="freqlabel">5000</td></tr>
+    <tr><td>Q : </td><td><input type="range" min="0" max="50" step="0.1" id="q" size="10" onchange="Setup()" value="5"/></td><td><div id="qlabel">5</td></tr>
+    <tr><td>Gain : </td><td><input type="range" min="-50" max="50" id="gain" size="10" onchange="Setup()" value="0"/></td><td><div id="gainlabel">0</td></tr>
+    </table>
+
       <!-- Video area -->
       <div class="pure-u-2-3" id="video-container">
         <video id="their-video" autoplay></video>
@@ -125,8 +134,6 @@
         <p class="effectcontrol">
           Filter on: <input type="checkbox" checked="false"
             onchange="Lowpass.toggleFilter(this);"/>
-            Filter on: <input type="checkbox" checked="false"
-              onchange="Highpass.toggleFilter(this);"/>
          Frequency: <input type="range" min="0" max="1" step="0.01" value="1" oninput="Lowpass.changeFrequency(this);" />
           Quality: <input type="range" min="0" max="1" step="0.01" value="0" oninput="Lowpass.changeQuality(this);" /></p>
       </div>
