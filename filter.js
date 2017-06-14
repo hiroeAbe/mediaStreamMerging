@@ -15,7 +15,7 @@ var osc = null;
 scrproc.onaudioprocess = Process;
 scrproc.connect(filter);
 
-filter.connect(audioctx.destination);
+filter.connect(audioCtx.destination);
 //filter.frequency.value = 5000;
 //filter.Q.value = 5;
 
