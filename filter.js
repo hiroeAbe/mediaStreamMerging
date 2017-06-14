@@ -1,10 +1,8 @@
 var audioCtx = null;
 
-$(function(){
-  audioCtx = new AudioContext();
-  console.log("audioCtx init");
-});
 
+
+var audioCtx = new AudioContext();
 var bufsize = 1024;
 var play = 0;
 var data = new Float32Array(bufsize);
