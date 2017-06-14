@@ -7,11 +7,11 @@ var bufsize = 1024;
 var play = 0;
 var data = new Float32Array(bufsize);
 
-var scrproc = audioCtx.createScriptProcessor(bufsize);
+//var scrproc = audioCtx.createScriptProcessor(bufsize);
 var filter = audioCtx.createBiquadFilter();
 var osc = null;
-scrproc.onaudioprocess = Process;
-scrproc.connect(filter);
+//scrproc.onaudioprocess = Process;
+//scrproc.connect(filter);
 
 filter.connect(audioCtx.destination);
 //filter.frequency.value = 5000;
