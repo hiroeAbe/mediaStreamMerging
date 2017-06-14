@@ -50,4 +50,11 @@ Filter.toggleFilter = function(element) {
   } else {
     this.mic.connect(this.output);
   }
+  function Process(ev) {
+      var buf0 = ev.outputBuffer.getChannelData(0);
+      var buf1 = ev.outputBuffer.getChannelData(1);
+      for(var i = 0; i < bufsize; ++i) {
+          buf0[i] = buf1[i] = (Math.random() - 0.5) * play;
+      }
+  }
 }
